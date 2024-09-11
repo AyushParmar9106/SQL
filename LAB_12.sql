@@ -56,6 +56,32 @@ WHERE CITY='AHMEDABAD'
 --12
 SELECT PERSONNAME + 'LIVES IN' + CITY+'AND WORKS IN' + D.DEPARTMENTNAME +'DEPARTMENT' FROM PERSON P FULL OUTER JOIN DEPT D ON D.DEPARTMENTID=P.DEPARTMENTID
 
+--PART-B
+--1 
+SELECT P.PersonName+' earns '+CAST(P.Salary AS VARCHAR)+' from '+D.departmentName+' department monthly' FROM PERSON AS P JOIN DEPT AS D ON P.DepartmentID=D.DepartmentID
+
+--2 
+SELECT P.City,D.DepartmentName,SUM(P.SALARY),AVG(P.SALARY),MAX(P.SALARY) FROM PERSON AS P INNER JOIN DEPT AS D ON P.DepartmentID=D.DepartmentID GROUP BY P.City,D.DepartmentName;
+
+--3  
+SELECT P.PersonName FROM PERSON AS P LEFT JOIN DEPT AS D ON P.DepartmentID=D.DepartmentID WHERE D.DepartmentID IS NULL;
+
+--4
+SELECT D.DepartmentName,SUM(P.SALARY) FROM PERSON AS P INNER JOIN DEPT AS D ON P.DepartmentID=D.DepartmentID GROUP BY D.DepartmentName HAVING SUM(P.SALARY)>100000
+
+--PART-C
+--1 
+SELECT D.DepartmentName,COUNT(P.PersonName) FROM PERSON AS P JOIN DEPT AS D ON P.DepartmentID=D.DepartmentID GROUP BY D.DepartmentName HAVING COUNT(P.PersonName)=0;
+
+--2 
+SELECT D.DepartmentName,COUNT(P.PersonName) FROM PERSON AS P JOIN DEPT AS D ON P.DepartmentID=D.DepartmentID GROUP BY D.DepartmentName HAVING COUNT(P.PersonName)>2
+
+--3 
+Update P
+SET P.SALARY=1.1*P.SALARY
+FROM PERSON AS P INNER JOIN DEPT AS D
+ON P.DepartmentID=D.DepartmentID
+WHERE D.DepartmentName='Computer'
 
 
 
